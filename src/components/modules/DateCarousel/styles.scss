@@ -1,0 +1,56 @@
+@import "../../../styles/variables";
+
+.dateCarousel {
+  border-top: 1px solid $global-color-gray-1;
+  border-bottom: 1px solid $global-color-gray-1;
+  overflow: hidden;
+
+  & &__item {
+    display: flex;
+    border-left: 1px solid $global-color-gray-1;
+    border-right: 1px solid $global-color-gray-1;
+    width: 56px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: $global-color-gray-1;
+    cursor: pointer;
+  }
+
+  & &__item + &__item {
+    margin-left: -1px;
+  }
+
+  & &__item:global(.swiper-slide-active) {
+    opacity: 1;
+    background-color: $global-color-white;
+    color: $global-color-black;
+    transition-property: background-color, color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+  }
+
+  & &__item.dateCarousel__item--sunday {
+    color: #a05d84;
+  }
+
+  & &__item.dateCarousel__item--saturday {
+    color: #6382ac;
+  }
+
+  & &__item.dateCarousel__item--nationalHoliday {
+    color: #a05d84;
+  }
+
+  & &__item:global(.swiper-slide-active).dateCarousel__item--sunday,
+  & &__item:global(.swiper-slide-active).dateCarousel__item--nationalHoliday {
+    background-color: #ffeaf6;
+    color: #d01884;
+  }
+
+  & &__item:global(.swiper-slide-active).dateCarousel__item--saturday {
+    background-color: #deecff;
+    color: #004eb8;
+  }
+}

@@ -1,0 +1,72 @@
+@import "../../../styles/variables";
+
+.changeGraphSource {
+  display: flex;
+  overflow-x: auto;
+  border-bottom: 4px solid $global-color-gray-2;
+  transition: border-bottom 0.2s ease-in-out;
+
+  &.changeGraphSource--retailAndRecreation {
+    border-bottom-color: $retailAndRecreation-color;
+  }
+
+  &.changeGraphSource--groceryAndPharmacy {
+    border-bottom-color: $groceryAndPharmacy-color;
+  }
+
+  &.changeGraphSource--parks {
+    border-bottom-color: $parks-color;
+  }
+
+  &.changeGraphSource--transitStations {
+    border-bottom-color: $transitStations-color;
+  }
+
+  &.changeGraphSource--workspaces {
+    border-bottom-color: $workspaces-color;
+  }
+
+  & &__item {
+    width: 160px;
+    height: 40px;
+  }
+
+  & &__button {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+    opacity: 0.5;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  & &__button.changeGraphSource__button--retailAndRecreation {
+    background-color: $retailAndRecreation-color;
+  }
+
+  & &__button.changeGraphSource__button--groceryAndPharmacy {
+    background-color: $groceryAndPharmacy-color;
+  }
+
+  & &__button.changeGraphSource__button--parks {
+    background-color: $parks-color;
+  }
+
+  & &__button.changeGraphSource__button--transitStations {
+    background-color: $transitStations-color;
+  }
+
+  & &__button.changeGraphSource__button--workspaces {
+    background-color: $workspaces-color;
+  }
+
+  & &__button.changeGraphSource__button--current {
+    opacity: 1;
+  }
+
+  & &__icon {
+    width: 21px;
+    margin-right: 4px;
+  }
+}

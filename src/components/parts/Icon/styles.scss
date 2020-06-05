@@ -1,0 +1,14 @@
+@import "../../../styles/variables";
+
+.icon {
+  display: inline-flex;
+  width: 1em;
+  align-items: center;
+  fill: $text-color;
+
+  & &__content {
+    width: 100%;
+    height: auto;
+    fill: inherit;
+  }
+}

@@ -1,0 +1,155 @@
+@import "../../../styles/variables";
+
+@mixin barItemAnimation($keyframe-name) {
+  @keyframes barItem-#{$keyframe-name} {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+.prefectureGraph {
+  display: flex;
+  align-items: center;
+  height: 32px;
+
+  & &__name {
+    flex-shrink: 0;
+    width: 5em;
+    text-align: center;
+    border-right: 1px solid $global-color-gray-1;
+  }
+
+  & &__bar {
+    position: relative;
+    margin: 0 3.5em 0 3em;
+    height: inherit;
+    flex-grow: 1;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: inherit;
+      background-color: $global-color-gray-2;
+      left: 50%;
+      margin-left: -1px;
+    }
+  }
+
+  & &__barItem {
+    $bar-height: 4px;
+    position: absolute;
+    margin-top: $bar-height * -0.5;
+    height: $bar-height;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width ease-in-out 0.2s, background-color ease-in-out 0.2s;
+    will-change: width, transform, background-color;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 50%;
+      height: inherit;
+      transition: width ease-in-out 0.2s;
+    }
+
+    &::before {
+      right: 50%;
+    }
+
+    &::after {
+      left: 50%;
+    }
+  }
+
+  & &__barValue {
+    display: block;
+    position: absolute;
+    line-height: 1;
+    top: 50%;
+    margin-top: 13px * -0.5;
+  }
+
+  & &__bar.prefectureGraph__bar--positive &__barItem {
+    &::before {
+      width: 0;
+    }
+
+    &::after {
+      transition-delay: 0.1s;
+      transition-duration: 0.1s;
+    }
+  }
+
+  & &__bar.prefectureGraph__bar--positive &__barValue {
+    $namespace: "positive";
+    left: 100%;
+    margin-left: 4px;
+    animation: barItem-#{$namespace} 0.2s ease-in-out both;
+    @include barItemAnimation($keyframe-name: $namespace);
+  }
+
+  & &__bar.prefectureGraph__bar--negative &__barItem {
+    &::before {
+      transition-delay: 0.1s;
+      transition-duration: 0.1s;
+    }
+
+    &::after {
+      width: 0;
+    }
+  }
+
+  & &__bar.prefectureGraph__bar--negative &__barValue {
+    $namespace: "negative";
+    right: 100%;
+    margin-right: 4px;
+    animation: barItem-#{$namespace} 0.2s ease-in-out both;
+    @include barItemAnimation($keyframe-name: $namespace);
+  }
+
+  & &__bar.prefectureGraph__bar--retailAndRecreation &__barItem {
+    &::before,
+    &::after {
+      background-color: $retailAndRecreation-color;
+    }
+  }
+
+  & &__bar.prefectureGraph__bar--groceryAndPharmacy &__barItem {
+    &::before,
+    &::after {
+      background-color: $groceryAndPharmacy-color;
+    }
+  }
+
+  & &__bar.prefectureGraph__bar--parks &__barItem {
+    &::before,
+    &::after {
+      background-color: $parks-color;
+    }
+  }
+
+  & &__bar.prefectureGraph__bar--transitStations &__barItem {
+    &::before,
+    &::after {
+      background-color: $transitStations-color;
+    }
+  }
+
+  & &__bar.prefectureGraph__bar--workspaces &__barItem {
+    &::before,
+    &::after {
+      background-color: $workspaces-color;
+    }
+  }
+}
