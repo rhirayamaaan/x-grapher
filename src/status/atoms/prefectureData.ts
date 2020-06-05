@@ -12,6 +12,7 @@ const getCovid19CommunityMobilityReportsData = (code: Prefectures.Constants.Code
   )[0];
 };
 
+// @types が完成したら atomFamliy で書き直す
 export const prefectureDataState = (code: Prefectures.Constants.Codes) =>
   atom({
     key: `prefectureData-${code}`,
@@ -21,6 +22,7 @@ export const prefectureDataState = (code: Prefectures.Constants.Codes) =>
     },
   });
 
+// @types が完成したら selectorFamily で書き直す
 export const selectedPrefectureDataState = (code: Prefectures.Constants.Codes) =>
   selector({
     key: `selectedPrefecuterData-${code}`,
