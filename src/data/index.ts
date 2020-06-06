@@ -28,14 +28,6 @@ namespace Covid19CommunityMobilityReports {
 }
 
 namespace JapanMeteorologicalAgency {
-  export namespace Jsons {
-    export const HighestTemperature = JapanMeteorologicalAgencyHighestTemperature;
-    export const LowestTemperature = JapanMeteorologicalAgencyLowestTemperature;
-    export const MaximumSustainedWinds = JapanMeteorologicalAgencyMaximumSustainedWinds;
-    export const Rainfall = JapanMeteorologicalAgencyRainfall;
-    export const SunlightHours = JapanMeteorologicalAgencySunlightHours;
-  }
-
   export namespace Constants {
     export enum Categories {
       HIGHEST_TEMPERATURE = 'highestTemperature',
@@ -45,6 +37,27 @@ namespace JapanMeteorologicalAgency {
       SUNLIGHT_HOURS = 'sunlightHours',
     }
   }
+
+  interface JsonData {
+    [key: string]: {
+      [key: string]: {
+        value: number;
+        direction?: string;
+      };
+    };
+  }
+
+  type JsonsData = {
+    [key in JapanMeteorologicalAgency.Constants.Categories]: JsonData;
+  };
+
+  export const Jsons = {
+    [Constants.Categories.HIGHEST_TEMPERATURE]: JapanMeteorologicalAgencyHighestTemperature,
+    [Constants.Categories.LOWEST_TEMPERATURE]: JapanMeteorologicalAgencyLowestTemperature,
+    [Constants.Categories.MAXIMUM_SUSTAINED_WINDS]: JapanMeteorologicalAgencyMaximumSustainedWinds,
+    [Constants.Categories.RAINFALL]: JapanMeteorologicalAgencyRainfall,
+    [Constants.Categories.SUNLIGHT_HOURS]: JapanMeteorologicalAgencySunlightHours,
+  } as JsonsData;
 }
 
 export { ISODates, Prefectures, Covid19CommunityMobilityReports, JapanMeteorologicalAgency };
