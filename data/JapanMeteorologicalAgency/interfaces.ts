@@ -1,12 +1,13 @@
 namespace JapanMeteorologicalAgencyInterfaces {
   export interface PrefectureData {
-    date: string;
-    value: number | null;
-    direction?: string;
+    [key: string]: {
+      value: number | null;
+      direction?: string;
+    };
   }
 
   export interface Json {
-    [key: string]: PrefectureData[];
+    [key: string]: PrefectureData;
   }
 }
 

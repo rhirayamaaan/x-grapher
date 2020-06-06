@@ -115,6 +115,17 @@ class JsonCreator {
         return;
       }
 
+      const [year, month, day] = array[0].split('/').map((value) => this._checkNumber(value));
+
+      // date がない場合はヘッダーなので除外
+      if (year === null || month === null || day === null) {
+        return;
+      }
+
+      const date = moment([year, month - 1, day])
+        .tz(TIMEZONE)
+        .format('YYYY-MM-DD');
+
       const prefecturalSeat = this._prefecturalSeats[index];
 
       // 県庁所在地のデータがない場合は除外
@@ -131,40 +142,37 @@ class JsonCreator {
       // json のベースがセットされていない場合はセット
       if (this._json === null) {
         this._json = {
-          [prefectureCode]: [],
+          [date]: {
+            [prefectureCode]: {
+              value: null,
+            },
+          },
         };
-      } else if (typeof this._json[prefectureCode] === 'undefined') {
-        this._json[prefectureCode] = [];
+      } else if (typeof this._json[date] === 'undefined') {
+        this._json[date] = {
+          [prefectureCode]: {
+            value: null,
+          },
+        };
       }
 
       // 風向のデータ特有の処理
       if (this._hasWindDirections && this._windDirections[index].indexOf(JsonCreator.WIND_DIRECTION_HEAD_NAME) >= 0) {
-        // 日付が同じものを探して、その箇所に direction を追加
-        // （基本的に最後に追加されたものに追加すればよいはずなので、reverse して探索する）
-        [...this._json[prefectureCode]].reverse().some((data) => {
-          if (data.date === array[0] && this._json !== null) {
-            data.direction = value;
-
-            return true;
-          }
-          return false;
-        });
-
+        this._json[date][prefectureCode].direction = value;
         return;
       }
 
-      const data: Interfaces.PrefectureData = {
-        date: moment(array[0].split('/')).tz(TIMEZONE).format('YYYY-MM-DD'),
-        value: this._checkNumber(value),
-      };
+      const numberValue = this._checkNumber(value);
 
       // 値が有効ではない場合は除外
-      // （`row[0] = '年月日'`のケースを除外）
-      if (data.value === null) {
+      // （`row[0] = '年月日'`のときの行の場合を除外）
+      if (numberValue === null) {
         return;
       }
 
-      this._json[prefectureCode].push(data);
+      this._json[date][prefectureCode] = {
+        value: numberValue,
+      };
     });
 
     return this;
