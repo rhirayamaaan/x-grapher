@@ -4,6 +4,8 @@ import { currentSortSourceState } from './currentSortSource';
 import { currentDateState } from './currentDate';
 import TimeUtilities from '~/utilities/time';
 
+const initalState = () => Prefectures.Constants.codeKeys.map((key) => Prefectures.Constants.Codes[key]);
+
 export enum TableSortOrderTypes {
   ASCENDING = 'ascending',
   DESCENDING = 'descending',
@@ -22,7 +24,7 @@ export const tableOrderState = selector({
     const tableOrderSort = get(tableOrderSortState);
     const data = JapanMeteorologicalAgency.Jsons[currentSortSource][TimeUtilities.parseISOYYYYMMDDString(currentDate)];
 
-    return Object.keys(data).sort((a, b) => {
+    const sorted = Object.keys(data).sort((a, b) => {
       if (data[a].value < data[b].value) {
         return tableOrderSort === TableSortOrderTypes.ASCENDING ? -1 : 1;
       } else if (data[a].value > data[b].value) {
@@ -30,5 +32,10 @@ export const tableOrderState = selector({
       }
       return 0;
     }) as Prefectures.Constants.Codes[];
+
+    return initalState().map((code) => ({
+      code,
+      index: sorted.findIndex((value) => value === code),
+    }));
   },
 });
