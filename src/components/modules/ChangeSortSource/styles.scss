@@ -1,0 +1,67 @@
+@import "../../../styles/variables";
+
+.changeSortSource {
+  & &__orders {
+    display: flex;
+  }
+
+  & &__order {
+    flex-grow: 1;
+    width: 50%;
+  }
+
+  & &__orderButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+  }
+
+  & &__orderButton.changeSortSource__orderButton--current {
+    background-color: $global-color-white;
+    color: $global-color-black;
+  }
+
+  & &__orderIcon {
+    font-size: 21px;
+  }
+
+  & &__orderButton.changeSortSource__orderButton--current &__orderIcon {
+    fill: $global-color-black;
+  }
+
+  & &__orderIcon.changeSortSource__orderIcon--ascending {
+    transform: scale(1, -1);
+  }
+
+  & &__category {
+    border-top: 1px solid $global-color-gray-1;
+    border-bottom: 1px solid $global-color-gray-1;
+  }
+
+  & &__category + &__category {
+    margin-top: -1px;
+  }
+
+  & &__categoryButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+  }
+
+  & &__categoryButton.changeSortSource__categoryButton--current {
+    background-color: $global-color-white;
+    color: $global-color-black;
+  }
+
+  & &__categoryIcon {
+    font-size: 21px;
+  }
+
+  & &__categoryButton.changeSortSource__categoryButton--current &__categoryIcon {
+    fill: $global-color-black;
+  }
+}

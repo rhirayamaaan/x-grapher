@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useEffect, FC } from 'react';
 import Swiper, { SwiperInstance } from 'react-id-swiper';
 import { useRecoilState } from 'recoil';
 import TimeUtilities from '~/utilities/time';
@@ -21,7 +21,11 @@ const dates = (() => {
   ].reverse();
 })();
 
-const DateCarousel = () => {
+interface DataCarouselProps {
+  className?: string;
+}
+
+const DateCarousel: FC<DataCarouselProps> = ({ className }) => {
   const swiperInstance = useRef<SwiperInstance>(null);
   const [currentDate, setCurrentDate] = useRecoilState(currentDateState);
 
@@ -47,7 +51,7 @@ const DateCarousel = () => {
       slidesPerView="auto"
       initialSlide={dates.length - 1}
       allowTouchMove={false}
-      containerClass={styles.dateCarousel}
+      containerClass={[styles.dateCarousel, className].join(' ').trim()}
       getSwiper={getSwiperInstance}
     >
       {dates.map((date) => {

@@ -1,11 +1,10 @@
 import { ISODateConstants, PrefecturesConstants } from '../../data/constants';
-import Covid19CommunityMobilityReportsJson from '../../data/Google/Covid-19CommunityMobilityReports/data.json';
 import Covid19CommunityMobilityReportsConstants from '../../data/Google/Covid-19CommunityMobilityReports/constants';
-import JapanMeteorologicalAgencyHighestTemperature from '../../data/JapanMeteorologicalAgency/jsons/highestTemperature.json';
-import JapanMeteorologicalAgencyLowestTemperature from '../../data/JapanMeteorologicalAgency/jsons/lowestTemperature.json';
-import JapanMeteorologicalAgencyMaximumSustainedWinds from '../../data/JapanMeteorologicalAgency/jsons/maximumSustainedWinds.json';
-import JapanMeteorologicalAgencyRainfall from '../../data/JapanMeteorologicalAgency/jsons/rainfall.json';
-import JapanMeteorologicalAgencySunlightHours from '../../data/JapanMeteorologicalAgency/jsons/sunlightHours.json';
+// import JapanMeteorologicalAgencyHighestTemperature from '../../data/JapanMeteorologicalAgency/jsons/highestTemperature.json';
+// import JapanMeteorologicalAgencyLowestTemperature from '../../data/JapanMeteorologicalAgency/jsons/lowestTemperature.json';
+// import JapanMeteorologicalAgencyMaximumSustainedWinds from '../../data/JapanMeteorologicalAgency/jsons/maximumSustainedWinds.json';
+// import JapanMeteorologicalAgencyRainfall from '../../data/JapanMeteorologicalAgency/jsons/rainfall.json';
+// import JapanMeteorologicalAgencySunlightHours from '../../data/JapanMeteorologicalAgency/jsons/sunlightHours.json';
 
 namespace ISODates {
   export import Constants = ISODateConstants;
@@ -16,15 +15,18 @@ namespace Prefectures {
 }
 
 namespace Covid19CommunityMobilityReports {
-  export const Json = Covid19CommunityMobilityReportsJson;
-  export import Constants = Covid19CommunityMobilityReportsConstants;
-  export const jaCategoryNames: { [key in Constants.Categories]: string } = {
-    [Constants.Categories.RETAIL_AND_RECREATION]: '小売、娯楽',
-    [Constants.Categories.GROCERY_AND_PHARMACY]: '食料品店、薬局',
-    [Constants.Categories.PARKS]: '公園',
-    [Constants.Categories.TRANSIT_STATIONS]: '乗換駅',
-    [Constants.Categories.WORKSPACES]: '職場',
-  };
+  export const getJson = async () => await import('../../data/Google/Covid-19CommunityMobilityReports/data.json');
+
+  export namespace Constants {
+    export import Categories = Covid19CommunityMobilityReportsConstants.Categories;
+    export const jaCategoryNames: { [key in Constants.Categories]: string } = {
+      [Categories.RETAIL_AND_RECREATION]: '小売、娯楽',
+      [Categories.GROCERY_AND_PHARMACY]: '食料品店、薬局',
+      [Categories.PARKS]: '公園',
+      [Categories.TRANSIT_STATIONS]: '乗換駅',
+      [Categories.WORKSPACES]: '職場',
+    };
+  }
 }
 
 namespace JapanMeteorologicalAgency {
@@ -36,6 +38,14 @@ namespace JapanMeteorologicalAgency {
       RAINFALL = 'rainfall',
       SUNLIGHT_HOURS = 'sunlightHours',
     }
+
+    export const jaCategoryNames: { [key in Constants.Categories]: string } = {
+      [Constants.Categories.HIGHEST_TEMPERATURE]: '最高気温',
+      [Constants.Categories.LOWEST_TEMPERATURE]: '最低気温',
+      [Constants.Categories.MAXIMUM_SUSTAINED_WINDS]: '最大風速',
+      [Constants.Categories.RAINFALL]: '降水量',
+      [Constants.Categories.SUNLIGHT_HOURS]: '日照時間',
+    };
   }
 
   interface JsonData {
@@ -51,13 +61,23 @@ namespace JapanMeteorologicalAgency {
     [key in JapanMeteorologicalAgency.Constants.Categories]: JsonData;
   };
 
-  export const Jsons = {
-    [Constants.Categories.HIGHEST_TEMPERATURE]: JapanMeteorologicalAgencyHighestTemperature,
-    [Constants.Categories.LOWEST_TEMPERATURE]: JapanMeteorologicalAgencyLowestTemperature,
-    [Constants.Categories.MAXIMUM_SUSTAINED_WINDS]: JapanMeteorologicalAgencyMaximumSustainedWinds,
-    [Constants.Categories.RAINFALL]: JapanMeteorologicalAgencyRainfall,
-    [Constants.Categories.SUNLIGHT_HOURS]: JapanMeteorologicalAgencySunlightHours,
-  } as JsonsData;
+  export const getJsons = async () => {
+    const results = await Promise.all([
+      await import('../../data/JapanMeteorologicalAgency/jsons/highestTemperature.json'),
+      await import('../../data/JapanMeteorologicalAgency/jsons/lowestTemperature.json'),
+      await import('../../data/JapanMeteorologicalAgency/jsons/maximumSustainedWinds.json'),
+      await import('../../data/JapanMeteorologicalAgency/jsons/rainfall.json'),
+      await import('../../data/JapanMeteorologicalAgency/jsons/sunlightHours.json'),
+    ]);
+
+    return {
+      [Constants.Categories.HIGHEST_TEMPERATURE]: results[0].default,
+      [Constants.Categories.LOWEST_TEMPERATURE]: results[1].default,
+      [Constants.Categories.MAXIMUM_SUSTAINED_WINDS]: results[2].default,
+      [Constants.Categories.RAINFALL]: results[3].default,
+      [Constants.Categories.SUNLIGHT_HOURS]: results[4].default,
+    } as JsonsData;
+  };
 }
 
 export { ISODates, Prefectures, Covid19CommunityMobilityReports, JapanMeteorologicalAgency };

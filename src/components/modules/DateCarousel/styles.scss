@@ -1,20 +1,23 @@
 @import "../../../styles/variables";
 
 .dateCarousel {
-  border-top: 1px solid $global-color-gray-1;
-  border-bottom: 1px solid $global-color-gray-1;
+  border-top: 1px solid $global-color-gray-3;
+  border-bottom: 1px solid $global-color-gray-3;
+  background-color: rgba($global-color-black, 0.9);
   overflow: hidden;
 
   & &__item {
     display: flex;
     border-left: 1px solid $global-color-gray-1;
     border-right: 1px solid $global-color-gray-1;
-    width: 56px;
-    height: 40px;
+    width: 72px;
+    height: 56px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     color: $global-color-gray-1;
+    font-size: 13px;
+    line-height: 1.4;
     cursor: pointer;
   }
 

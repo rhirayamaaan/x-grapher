@@ -1,11 +1,15 @@
 @import "../../../styles/variables";
 
 .graphTable {
+  $item-height: 33px;
+
   position: relative;
+  height: $item-height * 47;
+
   & &__item {
     border-top: 1px solid $global-color-gray-1;
     width: 100%;
-    height: 33px;
+    height: $item-height;
     position: absolute;
   }
 }

@@ -1,0 +1,56 @@
+@import "../../../styles/variables";
+
+.top {
+  & &__table {
+    border-top: 1px solid $global-color-gray-3;
+    padding-bottom: 58px + 8px;
+  }
+  & &__tableBody {
+    display: flex;
+  }
+
+  & &__tableBodyHeader {
+    min-width: 160px;
+    border-right: 1px solid $global-color-gray-3;
+    flex-shrink: 1;
+  }
+
+  & &__tableBodyData {
+    flex-grow: 1;
+  }
+
+  & &__changeSortSource,
+  & &__changeGraphSource {
+    position: sticky;
+    background-color: rgba($global-color-black, 0.9);
+    top: 0;
+    left: 0;
+    z-index: $elevation-level-3-z-index;
+  }
+
+  & &__changeSortSource {
+    margin-top: 48px + 2px;
+    top: 48px + 2px;
+  }
+
+  & &__changeGraphSource::before {
+    content: "";
+    position: absolute;
+    border: inherit;
+    width: 160px;
+    bottom: -2px;
+    right: 100%;
+  }
+
+  & &__graphTable {
+    margin-top: -1px;
+  }
+
+  & &__dates {
+    position: fixed;
+    width: 100%;
+    bottom: 8px;
+    left: 0;
+    z-index: $elevation-level-3-z-index;
+  }
+}

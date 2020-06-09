@@ -1,0 +1,44 @@
+@import "../../../styles/variables";
+
+.globalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 24px;
+  min-height: 56px;
+
+  & &__title {
+    display: flex;
+    font-weight: normal;
+    align-items: center;
+  }
+
+  & &__titleMain {
+    font-size: 23px;
+    white-space: nowrap;
+  }
+
+  & &__titleSub {
+    position: relative;
+    margin-top: 4px;
+    margin-left: 8px;
+    padding-left: 13px * 0.5 + 8px;
+
+    &::before {
+      content: "-";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+    }
+  }
+
+  & &__menu {
+    display: flex;
+    margin-left: 24px;
+  }
+
+  & &__menuLink {
+    color: inherit;
+  }
+}

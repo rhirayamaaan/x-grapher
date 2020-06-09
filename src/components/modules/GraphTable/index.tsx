@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, Suspense } from 'react';
 import { useRecoilValue } from 'recoil';
 import { NodeGroup } from 'react-move';
 import { easeCubicInOut } from 'd3-ease';
@@ -6,7 +6,11 @@ import { tableOrderState } from '~/status/atoms/tableOrder';
 import PrefecuterGraph from '~/components/parts/PrefectureGraph';
 import styles from './styles.scss';
 
-const GraphTable = () => {
+interface GraphTableProps {
+  className?: string;
+}
+
+const GraphTable: FC<GraphTableProps> = ({ className }) => {
   const tableOrder = useRecoilValue(tableOrderState);
 
   return (
@@ -22,8 +26,8 @@ const GraphTable = () => {
       })}
     >
       {(nodes) => (
-        <ul className={styles.graphTable}>
-          {nodes.map(({ key, data, state }) => (
+        <ul className={[styles.graphTable, className].join(' ').trim()}>
+          {nodes.map(({ key, state }) => (
             <li
               className={styles.graphTable__item}
               key={key}

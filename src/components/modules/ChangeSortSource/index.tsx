@@ -3,16 +3,17 @@ import Icon, { IconThemes } from '~/components/parts/Icon';
 import { currentSortSourceState } from '~/status/atoms/currentSortSource';
 import { JapanMeteorologicalAgency } from '~/data';
 import { useRecoilState } from 'recoil';
-import { tableOrderSortState, TableSortOrderTypes } from '~/status/atoms/tableOrder';
+import { tableOrderSortState, TableSortOrderConstants } from '~/status/atoms/tableOrder';
+import styles from './styles.scss';
 
-const itemsData = [
+const categories = [
   {
     category: JapanMeteorologicalAgency.Constants.Categories.HIGHEST_TEMPERATURE,
-    icon: IconThemes.CELSIUS,
+    icon: IconThemes.THERMOMETER,
   },
   {
     category: JapanMeteorologicalAgency.Constants.Categories.LOWEST_TEMPERATURE,
-    icon: IconThemes.CELSIUS,
+    icon: IconThemes.THERMOMETER,
   },
   {
     category: JapanMeteorologicalAgency.Constants.Categories.MAXIMUM_SUSTAINED_WINDS,
@@ -28,28 +29,84 @@ const itemsData = [
   },
 ];
 
-interface ChangeSortSourceItemProps {
-  category: JapanMeteorologicalAgency.Constants.Categories;
-  icon: IconThemes;
-  onClick: (category: JapanMeteorologicalAgency.Constants.Categories) => void;
+const orders = [
+  {
+    type: TableSortOrderConstants.Types.ASCENDING,
+  },
+  {
+    type: TableSortOrderConstants.Types.DESCENDING,
+  },
+];
+
+interface ChnageSortSourceOrderProps {
+  type: TableSortOrderConstants.Types;
+  isCurrent: boolean;
+  onClick: (type: TableSortOrderConstants.Types) => void;
 }
 
-const ChangeSortSourceItem: FC<ChangeSortSourceItemProps> = ({ category, icon, onClick }) => {
-  const setCategory = useCallback(() => {
-    onClick(category);
+const ChnageSortSourceOrder: FC<ChnageSortSourceOrderProps> = ({ type, isCurrent, onClick }) => {
+  const setOrder = useCallback(() => {
+    onClick(type);
   }, []);
 
   return (
-    <li>
-      <button onClick={setCategory}>
-        <Icon theme={icon} />
-        {category}
+    <li className={styles.changeSortSource__order}>
+      <button
+        onClick={setOrder}
+        className={[
+          styles.changeSortSource__orderButton,
+          isCurrent ? styles['changeSortSource__orderButton--current'] : '',
+        ]
+          .join(' ')
+          .trim()}
+      >
+        <Icon
+          className={[styles.changeSortSource__orderIcon, styles[`changeSortSource__orderIcon--${type}`]]
+            .join(' ')
+            .trim()}
+          theme={IconThemes.SORT}
+        />
+        <span className={styles.changeSortSource__orderText}>{TableSortOrderConstants.jaNames[type]}</span>
       </button>
     </li>
   );
 };
 
-const ChangeSortSource = () => {
+interface ChangeSortSourceCategoryProps {
+  category: JapanMeteorologicalAgency.Constants.Categories;
+  isCurrent: boolean;
+  icon: IconThemes;
+  onClick: (category: JapanMeteorologicalAgency.Constants.Categories) => void;
+}
+
+const ChangeSortSourceCategory: FC<ChangeSortSourceCategoryProps> = ({ category, isCurrent, icon, onClick }) => {
+  const setCategory = useCallback(() => {
+    onClick(category);
+  }, []);
+
+  return (
+    <li className={styles.changeSortSource__category}>
+      <button
+        className={[
+          styles.changeSortSource__categoryButton,
+          isCurrent ? styles['changeSortSource__categoryButton--current'] : '',
+        ]
+          .join(' ')
+          .trim()}
+        onClick={setCategory}
+      >
+        <Icon theme={icon} className={styles.changeSortSource__categoryIcon} />
+        {JapanMeteorologicalAgency.Constants.jaCategoryNames[category]}
+      </button>
+    </li>
+  );
+};
+
+interface ChangeSortSourceProps {
+  className?: string;
+}
+
+const ChangeSortSource: FC<ChangeSortSourceProps> = ({ className }) => {
   const [currentSortSource, setCurrentSortSource] = useRecoilState(currentSortSourceState);
   const [tableSortOrder, setTableSortOrder] = useRecoilState(tableOrderSortState);
   const setCategory = useCallback(
@@ -57,17 +114,28 @@ const ChangeSortSource = () => {
     []
   );
   return (
-    <>
-      <ul>
-        {itemsData.map((item) => (
-          <ChangeSortSourceItem {...item} onClick={setCategory} key={item.category} />
+    <div className={[styles.changeSortSource, className].join(' ').trim()}>
+      <ul className={styles.changeSortSource__orders}>
+        {orders.map((order) => (
+          <ChnageSortSourceOrder
+            type={order.type}
+            isCurrent={tableSortOrder === order.type}
+            onClick={setTableSortOrder}
+            key={order.type}
+          />
         ))}
       </ul>
-      <div>
-        <button onClick={() => setTableSortOrder(TableSortOrderTypes.ASCENDING)}>昇順</button>
-        <button onClick={() => setTableSortOrder(TableSortOrderTypes.DESCENDING)}>降順</button>
-      </div>
-    </>
+      <ul className={styles.changeSortSource__categories}>
+        {categories.map((cateogry) => (
+          <ChangeSortSourceCategory
+            {...cateogry}
+            isCurrent={currentSortSource === cateogry.category}
+            onClick={setCategory}
+            key={cateogry.category}
+          />
+        ))}
+      </ul>
+    </div>
   );
 };
 

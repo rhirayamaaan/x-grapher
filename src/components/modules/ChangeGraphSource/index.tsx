@@ -48,24 +48,34 @@ const ChangeGraphSourceItem: FC<ChangeGraphSourceItemProps> = ({ category, icon,
       onClick={() => onClick(category)}
     >
       <Icon className={styles.changeGraphSource__icon} theme={icon} />
-      {Covid19CommunityMobilityReports.jaCategoryNames[category]}
+      {Covid19CommunityMobilityReports.Constants.jaCategoryNames[category]}
     </button>
   </li>
 );
 
-const ChangeGraphSource = () => {
+interface ChangeGraphSourceProps {
+  className?: string;
+}
+
+const ChangeGraphSource: FC<ChangeGraphSourceProps> = ({ className }) => {
   const [currentGraphSource, setCurrentGraphSource] = useRecoilState(currentGraphSourceState);
   return (
-    <ul className={[styles.changeGraphSource, styles[`changeGraphSource--${currentGraphSource}`]].join(' ').trim()}>
-      {itemsData.map((item) => (
-        <ChangeGraphSourceItem
-          {...item}
-          isCurrent={currentGraphSource === item.category}
-          onClick={(category) => setCurrentGraphSource(category)}
-          key={item.category}
-        />
-      ))}
-    </ul>
+    <div
+      className={[styles.changeGraphSource, styles[`changeGraphSource--${currentGraphSource}`], className]
+        .join(' ')
+        .trim()}
+    >
+      <ul className={styles.changeGraphSource__items}>
+        {itemsData.map((item) => (
+          <ChangeGraphSourceItem
+            {...item}
+            isCurrent={currentGraphSource === item.category}
+            onClick={(category) => setCurrentGraphSource(category)}
+            key={item.category}
+          />
+        ))}
+      </ul>
+    </div>
   );
 };
 

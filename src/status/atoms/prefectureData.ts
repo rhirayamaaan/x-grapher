@@ -1,37 +1,34 @@
-import { atom, selector, useRecoilValue } from 'recoil';
+import { atomFamily, selectorFamily, useRecoilValue } from 'recoil';
 import { Covid19CommunityMobilityReports, Prefectures } from '~/data';
 import TimeUtilities from '~/utilities/time';
 import { currentDateState } from './currentDate';
 import { currentGraphSourceState } from './currentGraphSource';
 
-const getCovid19CommunityMobilityReportsData = (code: Prefectures.Constants.Codes) => {
+const getCovid19CommunityMobilityReportsData = async (code: Prefectures.Constants.Codes) => {
   const currentDate = useRecoilValue(currentDateState);
 
-  return Covid19CommunityMobilityReports.Json[code].filter(
-    (row) => row.date === TimeUtilities.parseISOYYYYMMDDString(currentDate)
-  )[0];
+  const json = await Covid19CommunityMobilityReports.getJson();
+
+  return json[code].filter((row) => row.date === TimeUtilities.parseISOYYYYMMDDString(currentDate))[0];
 };
 
-// @types が完成したら atomFamliy で書き直す
-export const prefectureDataState = (code: Prefectures.Constants.Codes) =>
-  atom({
-    key: `prefectureData-${code}`,
-    default: {
-      name: Prefectures.Constants.Names[code].ja,
-      ...getCovid19CommunityMobilityReportsData(code),
-    },
-  });
+export const prefectureDataState = atomFamily({
+  key: `prefectureData`,
+  default: async (code: Prefectures.Constants.Codes) => ({
+    name: Prefectures.Constants.Names[code].ja,
+    ...(await getCovid19CommunityMobilityReportsData(code)),
+  }),
+});
 
-// @types が完成したら selectorFamily で書き直す
-export const selectedPrefectureDataState = (code: Prefectures.Constants.Codes) =>
-  selector({
-    key: `selectedPrefecuterData-${code}`,
-    get: ({ get }) => {
-      const data = get(prefectureDataState(code));
-      const currentGraphSource = get(currentGraphSourceState);
-      return {
-        name: data.name,
-        value: data[currentGraphSource],
-      };
-    },
-  });
+export const selectedPrefectureDataState = selectorFamily({
+  key: `selectedPrefecuterData`,
+  get: (code: Prefectures.Constants.Codes) => async ({ get }) => {
+    const data = get(prefectureDataState(code));
+    const currentGraphSource = get(currentGraphSourceState);
+
+    return {
+      name: Prefectures.Constants.Names[code].ja,
+      value: data[currentGraphSource],
+    };
+  },
+});
