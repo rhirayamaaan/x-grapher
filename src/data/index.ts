@@ -1,10 +1,5 @@
 import { ISODateConstants, PrefecturesConstants } from '../../data/constants';
 import Covid19CommunityMobilityReportsConstants from '../../data/Google/Covid-19CommunityMobilityReports/constants';
-// import JapanMeteorologicalAgencyHighestTemperature from '../../data/JapanMeteorologicalAgency/jsons/highestTemperature.json';
-// import JapanMeteorologicalAgencyLowestTemperature from '../../data/JapanMeteorologicalAgency/jsons/lowestTemperature.json';
-// import JapanMeteorologicalAgencyMaximumSustainedWinds from '../../data/JapanMeteorologicalAgency/jsons/maximumSustainedWinds.json';
-// import JapanMeteorologicalAgencyRainfall from '../../data/JapanMeteorologicalAgency/jsons/rainfall.json';
-// import JapanMeteorologicalAgencySunlightHours from '../../data/JapanMeteorologicalAgency/jsons/sunlightHours.json';
 
 namespace ISODates {
   export import Constants = ISODateConstants;
