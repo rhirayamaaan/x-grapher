@@ -27,12 +27,24 @@ const PrefectureGraphPopup: FC<PrefectureGraphPopupProps> = ({ prefectureCode, i
       <ul className={styles.prefectureGraph__popupItems}>
         {currentSortSource !== CurrentSortSourceConstants.Types.DEFAULT ? (
           <li className={styles.prefectureGraph__popupItem}>
-            {CurrentSortSourceConstants.jaCategoryNames[currentSortSource]}：
-            {`${value}${CurrentSortSourceConstants.jaUnitNames[currentSortSource]}`}
+            <span className={styles.prefectureGraph__popupItemLabel}>
+              {CurrentSortSourceConstants.jaCategoryNames[currentSortSource]}
+            </span>
+            <span
+              className={styles.prefectureGraph__popupItemValue}
+            >{`${value}${CurrentSortSourceConstants.jaUnitNames[currentSortSource]}`}</span>
           </li>
         ) : null}
-        {direction ? <li className={styles.prefectureGraph__popupItem}>風向：{direction}</li> : null}
-        <li className={styles.prefectureGraph__popupItem}>県庁所在地：{name}</li>
+        {direction ? (
+          <li className={styles.prefectureGraph__popupItem}>
+            <span className={styles.prefectureGraph__popupItemLabel}>風向</span>
+            <span className={styles.prefectureGraph__popupItemValue}>{direction}</span>
+          </li>
+        ) : null}
+        <li className={styles.prefectureGraph__popupItem}>
+          <span className={styles.prefectureGraph__popupItemLabel}>県庁所在地</span>
+          <span className={styles.prefectureGraph__popupItemValue}>{name}</span>
+        </li>
       </ul>
     </div>
   );
