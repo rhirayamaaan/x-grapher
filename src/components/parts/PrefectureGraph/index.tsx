@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styles from './styles.scss';
 import { prefectureGraphDataState, selectedPrefectureGraphDataState } from '~/status/atoms/prefectureGraphData';
-import { Prefectures, JapanMeteorologicalAgency } from '~/data';
+import { Prefectures } from '~/data';
 import { currentGraphSourceState } from '~/status/atoms/currentGraphSource';
 import { prefectureSortDataState } from '~/status/atoms/prefectureSortData';
 import { currentSortSourceState, CurrentSortSourceConstants } from '~/status/atoms/currentSortSource';
