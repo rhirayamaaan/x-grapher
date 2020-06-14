@@ -9,7 +9,7 @@ import { default as Constants } from './constants';
 const TIMEZONE = 'Asia/Tokyo';
 
 class JsonCreator {
-  public prefectures: PrefecturesConstants.Codes[] = [];
+  public prefectures: string[] = [];
 
   private _json: Interfaces.Json | null = null;
 
@@ -25,8 +25,7 @@ class JsonCreator {
     return id;
   }
 
-  public add(prefecture: string, data: Interfaces.PrefectureData) {
-    const prefectureCode = this._getPrefectureCode(prefecture);
+  public add(prefectureCode: string, data: Interfaces.PrefectureData) {
     if (typeof prefectureCode === 'undefined') {
       return this;
     }
@@ -34,10 +33,10 @@ class JsonCreator {
     if (!this.prefectures.some((current) => current === prefectureCode)) {
       if (this._json === null) {
         this._json = {
-          [prefectureCode as string]: [],
+          [prefectureCode]: [],
         };
       } else {
-        this._json[prefectureCode as string] = [];
+        this._json[prefectureCode] = [];
       }
 
       this.prefectures.push(prefectureCode);
@@ -77,18 +76,18 @@ fs.createReadStream(path.resolve(__dirname, 'raw.csv'))
     if (
       row[0] !== 'JP' ||
       row[2].length === 0 ||
-      !moment(row[4]).tz(TIMEZONE).isBetween(ISODateConstants.FIRST_DATE, ISODateConstants.LAST_DATE, 'day', '[]')
+      !moment(row[6]).tz(TIMEZONE).isBetween(ISODateConstants.FIRST_DATE, ISODateConstants.LAST_DATE, 'day', '[]')
     ) {
       return;
     }
 
-    prefecturesJsonCreator.add(row[2], {
-      date: row[4],
-      [Constants.Categories.RETAIL_AND_RECREATION]: checkNumber(row[5]),
-      [Constants.Categories.GROCERY_AND_PHARMACY]: checkNumber(row[6]),
-      [Constants.Categories.PARKS]: checkNumber(row[7]),
-      [Constants.Categories.TRANSIT_STATIONS]: checkNumber(row[8]),
-      [Constants.Categories.WORKSPACES]: checkNumber(row[9]),
+    prefecturesJsonCreator.add(row[4], {
+      date: row[6],
+      [Constants.Categories.RETAIL_AND_RECREATION]: checkNumber(row[7]),
+      [Constants.Categories.GROCERY_AND_PHARMACY]: checkNumber(row[8]),
+      [Constants.Categories.PARKS]: checkNumber(row[9]),
+      [Constants.Categories.TRANSIT_STATIONS]: checkNumber(row[10]),
+      [Constants.Categories.WORKSPACES]: checkNumber(row[11]),
     });
   })
   .on('end', () => {

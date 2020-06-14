@@ -1,6 +1,6 @@
 export enum ISODateConstants {
   FIRST_DATE = '2020-02-15',
-  LAST_DATE = '2020-05-25',
+  LAST_DATE = '2020-06-07',
 }
 
 export namespace PrefecturesConstants {
