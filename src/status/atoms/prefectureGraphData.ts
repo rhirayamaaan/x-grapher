@@ -1,4 +1,4 @@
-import { atomFamily, selectorFamily, useRecoilValue } from 'recoil';
+import { atomFamily, selectorFamily } from 'recoil';
 import { Covid19CommunityMobilityReports, Prefectures } from '~/data';
 import TimeUtilities from '~/utilities/time';
 import { currentDateState } from './currentDate';
@@ -11,7 +11,6 @@ export const prefectureGraphDataState = atomFamily({
 
     return {
       name: Prefectures.Constants.Names[code].ja,
-      // ...json[code].filter((row) => row.date === TimeUtilities.parseISOYYYYMMDDString(currentDate))[0],
       data: json[code],
     };
   },
@@ -19,14 +18,13 @@ export const prefectureGraphDataState = atomFamily({
 
 export const selectedPrefectureGraphDataState = selectorFamily({
   key: 'selectedPrefecuterGraphData',
-  get: (code: Prefectures.Constants.Codes) => async ({ get }) => {
+  get: (code: Prefectures.Constants.Codes) => ({ get }) => {
     const { data } = get(prefectureGraphDataState(code));
     const currentDate = get(currentDateState);
     const currentGraphSource = get(currentGraphSourceState);
 
     return {
       name: Prefectures.Constants.Names[code].ja,
-      // value: data[currentGraphSource],
       value: data.filter((row) => row.date === TimeUtilities.parseISOYYYYMMDDString(currentDate))[0][
         currentGraphSource
       ],

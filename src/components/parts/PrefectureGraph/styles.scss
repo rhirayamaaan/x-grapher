@@ -14,10 +14,12 @@
   }
 }
 
+$module-height: 32px;
+
 .prefectureGraph {
   display: flex;
   align-items: center;
-  height: 32px;
+  height: $module-height;
 
   & &__name {
     flex-shrink: 0;
@@ -161,12 +163,23 @@
     }
   }
 
+  &.prefectureGraph--moving &__bar--positive,
+  &.prefectureGraph--moving &__bar--negative {
+    .prefectureGraph__barItem,
+    .prefectureGraph__barItem::before,
+    .prefectureGraph__barItem::after {
+      transition: none;
+    }
+
+    // .prefectureGraph__barValue {
+    //   animation: none;
+    // }
+  }
+
   & &__popup {
     position: absolute;
     padding: 4px 8px;
     background-color: rgba($global-color-white, 0.9);
-    // border: 1px solid $global-color-gray-1;
-    // border-left: 0;
     color: $global-color-black;
     font-size: 11px;
     top: 50%;
@@ -191,4 +204,9 @@
   & &__popupItem {
     margin-left: 8px;
   }
+}
+
+// stylelint-disable property-no-unknown
+:export {
+  MODULE_HEIGHT: $module-height;
 }

@@ -1,10 +1,12 @@
 import React, { FC, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilCallback } from 'recoil';
 import styles from './styles.scss';
-import { selectedPrefectureGraphDataState } from '~/status/atoms/prefectureGraphData';
+import { prefectureGraphDataState, selectedPrefectureGraphDataState } from '~/status/atoms/prefectureGraphData';
 import { Prefectures, JapanMeteorologicalAgency } from '~/data';
 import { currentGraphSourceState } from '~/status/atoms/currentGraphSource';
 import { prefectureSortDataState } from '~/status/atoms/prefectureSortData';
+
+export const PREFECTURE_GRAPH_HEIGHT = parseInt(styles.MODULE_HEIGHT);
 
 interface PrefectureGraphPopupProps {
   prefectureCode: Prefectures.Constants.Codes;
@@ -37,6 +39,9 @@ interface PrefecuterGraphProps {
 
 const PrefecuterGraph: FC<PrefecuterGraphProps> = ({ prefectureCode }) => {
   const currentGraphSource = useRecoilValue(currentGraphSourceState);
+  (() => {
+    prefectureGraphDataState(prefectureCode);
+  })();
   const prefectureGraphData = useRecoilValue(selectedPrefectureGraphDataState(prefectureCode));
   const [isDisplayedPopup, setDisplayedPopup] = useState(false);
 
