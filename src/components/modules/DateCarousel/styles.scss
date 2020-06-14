@@ -1,13 +1,17 @@
 @import "../../../styles/variables";
 
 .dateCarousel {
-  border-top: 1px solid $global-color-gray-3;
-  border-bottom: 1px solid $global-color-gray-3;
   background-color: rgba($global-color-black, 0.9);
   height: 48px;
   overflow: hidden;
 
   $item-width: 72px;
+
+  & &__container {
+    border-top: 1px solid $global-color-gray-3;
+    border-bottom: 1px solid $global-color-gray-3;
+    height: inherit;
+  }
 
   & &__item {
     display: flex;
@@ -67,5 +71,38 @@
   & &__item:global(.swiper-slide-active).dateCarousel__item--saturday {
     background-color: #deecff;
     color: #004eb8;
+  }
+
+  & &__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    border: 1px solid $global-color-gray-3;
+    background-color: rgba($global-color-black, 0.9);
+    width: 40px;
+    height: inherit;
+    top: 0;
+    z-index: 1;
+  }
+
+  & &__arrow.dateCarousel__arrow--prev {
+    left: -1px;
+  }
+
+  & &__arrow.dateCarousel__arrow--next {
+    right: -1px;
+  }
+
+  & &__arrowIcon {
+    width: 25px;
+  }
+
+  & &__arrow.dateCarousel__arrow--prev &__arrowIcon {
+    margin-left: -2px;
+  }
+
+  & &__arrow.dateCarousel__arrow--next &__arrowIcon {
+    margin-right: -2px;
   }
 }

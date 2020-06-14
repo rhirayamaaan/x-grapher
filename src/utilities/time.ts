@@ -1,6 +1,7 @@
 import moment from 'moment-timezone';
 import { isHoliday } from 'japanese-holidays';
 import 'moment/locale/ja';
+import { ISODates } from '~/data';
 
 const TIMEZONE = 'Asia/Tokyo';
 
@@ -43,6 +44,31 @@ namespace TimeUtilities {
   export const jaWeekdayNames = ['日', '月', '火', '水', '木', '金', '土'];
 
   export const parseJaWeekdayName = (date: Date) => jaWeekdayNames[getMoment(date).weekday()];
+
+  export const incrementDay = (date: Date) => {
+    const addedMoment = getMoment(date).add(1, 'days');
+    const lastMoment = getMoment(ISODates.Constants.LAST_DATE);
+    console.log(addedMoment.format('YYYY-MM-DD'));
+
+    if (addedMoment.isAfter(lastMoment)) {
+      return lastMoment.toDate();
+    }
+
+    return addedMoment.toDate();
+  };
+
+  export const decrementDay = (date: Date) => {
+    const subtractedMoment = getMoment(date).subtract(1, 'days');
+    const firstMoment = getMoment(ISODates.Constants.FIRST_DATE);
+
+    console.log(subtractedMoment.format('YYYY-MM-DD'));
+
+    if (subtractedMoment.isBefore(firstMoment)) {
+      return firstMoment.toDate();
+    }
+
+    return subtractedMoment.toDate();
+  };
 }
 
 export default TimeUtilities;
