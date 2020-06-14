@@ -24,8 +24,8 @@ module.exports = (env) => ({
   mode: 'production',
   entry: ['./src/App.tsx'],
   output: {
-    publicPath: '/',
-    path: `${__dirname}/build/`,
+    publicPath: '',
+    path: path.resolve('build/'),
     filename: 'bundle.js',
   },
   resolve: {
