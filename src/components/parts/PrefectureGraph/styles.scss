@@ -25,7 +25,13 @@ $module-height: 40px;
   & &__name {
     flex-shrink: 0;
     width: 5em;
+    height: 100%;
     text-align: center;
+  }
+
+  & &__nameButton {
+    width: 100%;
+    height: inherit;
   }
 
   & &__bar {

@@ -5,8 +5,6 @@
   height: 48px;
   overflow: hidden;
 
-  $item-width: 72px;
-
   & &__container {
     border-top: 1px solid $global-color-gray-3;
     border-bottom: 1px solid $global-color-gray-3;
@@ -17,7 +15,7 @@
     display: flex;
     border-left: 1px solid $global-color-gray-1;
     border-right: 1px solid $global-color-gray-1;
-    width: $item-width;
+    width: 72px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -38,16 +36,6 @@
     transition-property: background-color, color;
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out;
-
-    &::before {
-      content: "";
-      position: absolute;
-      border-width: 0 $item-width * 0.5 4px;
-      border-style: solid;
-      border-color: transparent transparent $global-color-white transparent;
-      top: -4px;
-      left: 0;
-    }
   }
 
   & &__item.dateCarousel__item--sunday {
@@ -104,5 +92,11 @@
 
   & &__arrow.dateCarousel__arrow--next &__arrowIcon {
     margin-right: -2px;
+  }
+
+  @media (max-width: $break-point) {
+    & &__item {
+      width: 64px;
+    }
   }
 }
