@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/hiraryo0213/x-grapher/issues"
   },
-  "homepage": "https://github.com/hiraryo0213/x-grapher#readme",
+  "homepage": "https://hiraryo0213.github.io/x-grapher/",
   "dependencies": {
     "d3-ease": "^1.0.6",
     "japanese-holidays": "^1.0.9",
