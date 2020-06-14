@@ -23,14 +23,20 @@
     flex-shrink: 0;
     width: 5em;
     text-align: center;
-    border-right: 1px solid $global-color-gray-1;
   }
 
   & &__bar {
     position: relative;
-    margin: 0 3.5em 0 3em;
-    height: inherit;
+    overflow: hidden;
     flex-grow: 1;
+    padding: 0 3.5em 0 3em;
+    border-left: 1px solid $global-color-gray-1;
+    height: inherit;
+  }
+
+  & &__barInner {
+    position: relative;
+    height: inherit;
 
     &::after {
       content: "";
@@ -61,6 +67,7 @@
       width: 50%;
       height: inherit;
       transition: width ease-in-out 0.2s;
+      will-change: width;
     }
 
     &::before {
@@ -78,6 +85,7 @@
     line-height: 1;
     top: 50%;
     margin-top: 13px * -0.5;
+    will-change: opacity;
   }
 
   & &__bar.prefectureGraph__bar--positive &__barItem {
@@ -151,5 +159,36 @@
     &::after {
       background-color: $workspaces-color;
     }
+  }
+
+  & &__popup {
+    position: absolute;
+    padding: 4px 8px;
+    background-color: rgba($global-color-white, 0.9);
+    // border: 1px solid $global-color-gray-1;
+    // border-left: 0;
+    color: $global-color-black;
+    font-size: 11px;
+    top: 50%;
+    left: 0;
+    opacity: 0;
+    transform: translate(-100%, -50%);
+    transition-property: transform, opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+  }
+
+  & &__popup.prefectureGraph__popup--displayed {
+    transform: translate(0, -50%);
+    opacity: 1;
+  }
+
+  & &__popupItems {
+    display: flex;
+    margin-left: -8px;
+  }
+
+  & &__popupItem {
+    margin-left: 8px;
   }
 }

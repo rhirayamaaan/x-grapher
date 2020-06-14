@@ -41,6 +41,14 @@ namespace JapanMeteorologicalAgency {
       [Constants.Categories.RAINFALL]: '降水量',
       [Constants.Categories.SUNLIGHT_HOURS]: '日照時間',
     };
+
+    export const jaUnitNames: { [key in Constants.Categories]: string } = {
+      [Constants.Categories.HIGHEST_TEMPERATURE]: '℃',
+      [Constants.Categories.LOWEST_TEMPERATURE]: '℃',
+      [Constants.Categories.MAXIMUM_SUSTAINED_WINDS]: 'm/s',
+      [Constants.Categories.RAINFALL]: 'mm',
+      [Constants.Categories.SUNLIGHT_HOURS]: '時間',
+    };
   }
 
   interface JsonData {
