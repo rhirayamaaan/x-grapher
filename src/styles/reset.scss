@@ -39,14 +39,9 @@ li {
   list-style: none;
 }
 
-a:focus,
-button:focus {
-  outline: 1px dotted $global-color-gray-1;
-}
-
 a {
   color: $link-color;
-  text-decoration: none;
+  text-decoration: underline;
   -webkit-tap-highlight-color: $tap-highlight-color;
 
   &:visited {
@@ -233,6 +228,11 @@ dfn {
 em,
 strong {
   font-weight: bold;
+}
+
+a:focus,
+button:focus {
+  outline: 1px dotted $global-color-gray-1;
 }
 
 *,

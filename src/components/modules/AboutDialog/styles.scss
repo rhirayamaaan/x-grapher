@@ -1,0 +1,70 @@
+@import "../../../styles/variables";
+
+.aboutDialog {
+  position: fixed;
+  overflow-y: auto;
+  padding: 24px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($global-color-black, 0.9);
+  top: 0;
+  left: 0;
+  z-index: $elevation-level-4-z-index;
+
+  & &__document {
+    margin: 0 auto;
+    max-width: 800px;
+    line-height: 2;
+  }
+
+  & &__title {
+    font-weight: normal;
+    text-align: center;
+    font-size: 23px;
+    line-height: 1.2;
+  }
+
+  & &__paragraph {
+    margin-top: 16px;
+  }
+
+  & &__title + &__paragraph {
+    margin-top: 24px;
+  }
+
+  & &__section {
+    margin-top: 40px;
+  }
+
+  & &__sectionTitle {
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 1.2;
+  }
+
+  & &__quote {
+    background-color: rgba($global-color-white, 0.9);
+    color: $global-color-black;
+    padding: 24px;
+  }
+
+  & &__quoteSource {
+    margin-top: 8px;
+    color: $global-color-gray-1;
+  }
+
+  & &__quoteSourceLink {
+    color: inherit;
+  }
+
+  & &__quote + &__paragraph,
+  & &__paragraph + &__quote {
+    margin-top: 16px;
+  }
+
+  & &__close {
+    margin-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+  }
+}

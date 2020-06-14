@@ -5,6 +5,7 @@ import GraphTable from '~/components/modules/GraphTable';
 import ChangeGraphSource from '~/components/modules/ChangeGraphSource';
 import ChangeSortSource from '~/components/modules/ChangeSortSource';
 import styles from './styles.scss';
+import AboutDialog from '~/components/modules/AboutDialog';
 
 const Top = () => {
   return (
@@ -26,6 +27,7 @@ const Top = () => {
       <div className={styles.top__dates}>
         <DateCarousel />
       </div>
+      <AboutDialog />
     </div>
   );
 };
