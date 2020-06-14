@@ -41,4 +41,10 @@
   & &__menuLink {
     color: inherit;
   }
+
+  @media (max-width: $break-point) {
+    & &__titleSub {
+      display: none;
+    }
+  }
 }

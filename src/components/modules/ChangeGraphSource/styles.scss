@@ -1,7 +1,8 @@
 @import "../../../styles/variables";
 
 .changeGraphSource {
-  border-bottom: 2px solid $global-color-gray-2;
+  $border-bottom-width: 2px;
+  border-bottom: $border-bottom-width solid $global-color-gray-2;
   transition: border-bottom 0.2s ease-in-out;
 
   &.changeGraphSource--retailAndRecreation {
@@ -31,7 +32,7 @@
 
   & &__item {
     min-width: 160px;
-    height: 48px;
+    height: 48px - $border-bottom-width;
   }
 
   & &__button {
@@ -136,5 +137,21 @@
 
   & &__button.changeGraphSource__button--workspaces.changeGraphSource__button--current &__icon {
     fill: $global-color-white;
+  }
+
+  @media (max-width: $break-point) {
+    & &__item {
+      min-width: 104px;
+    }
+
+    & &__button {
+      flex-direction: column;
+    }
+
+    & &__icon {
+      margin-right: 0;
+      padding-bottom: 2px;
+      width: 19px;
+    }
   }
 }

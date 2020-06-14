@@ -7,7 +7,10 @@
 
   & &__order {
     flex-grow: 1;
+    margin-top: -1px;
     width: 50%;
+    border-top: 1px solid $global-color-gray-1;
+    border-bottom: 1px solid $global-color-gray-1;
   }
 
   & &__orderButton {
@@ -33,6 +36,10 @@
 
   & &__orderIcon.changeSortSource__orderIcon--ascending {
     transform: scale(1, -1);
+  }
+
+  & &__orders + &__categories {
+    margin-top: 8px;
   }
 
   & &__category {
@@ -64,5 +71,27 @@
 
   & &__categoryButton.changeSortSource__categoryButton--current &__categoryIcon {
     fill: $global-color-black;
+  }
+
+  @media (max-width: $break-point) {
+    & &__orders {
+      display: block;
+    }
+
+    & &__order {
+      width: auto;
+    }
+
+    & &__orderButton,
+    & &__categoryButton {
+      flex-direction: column;
+      height: 48px;
+    }
+
+    & &__orderIcon,
+    & &__categoryIcon {
+      margin-left: 0;
+      padding-bottom: 2px;
+    }
   }
 }

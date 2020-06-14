@@ -4,20 +4,21 @@
   border-top: 1px solid $global-color-gray-3;
   border-bottom: 1px solid $global-color-gray-3;
   background-color: rgba($global-color-black, 0.9);
+  height: 48px;
   overflow: hidden;
+
+  $item-width: 72px;
 
   & &__item {
     display: flex;
     border-left: 1px solid $global-color-gray-1;
     border-right: 1px solid $global-color-gray-1;
-    width: 72px;
-    height: 56px;
+    width: $item-width;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     color: $global-color-gray-1;
     font-size: 13px;
-    line-height: 1.4;
     cursor: pointer;
   }
 
@@ -26,12 +27,23 @@
   }
 
   & &__item:global(.swiper-slide-active) {
+    position: relative;
     opacity: 1;
     background-color: $global-color-white;
     color: $global-color-black;
     transition-property: background-color, color;
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out;
+
+    &::before {
+      content: "";
+      position: absolute;
+      border-width: 0 $item-width * 0.5 4px;
+      border-style: solid;
+      border-color: transparent transparent $global-color-white transparent;
+      top: -4px;
+      left: 0;
+    }
   }
 
   & &__item.dateCarousel__item--sunday {
