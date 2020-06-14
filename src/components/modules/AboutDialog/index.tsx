@@ -147,7 +147,9 @@ const AboutDialog = () => {
         </section>
       </article>
       <p className={styles.aboutDialog__close}>
-        <button onClick={setDisplayed}>閉じる</button>
+        <button className={styles.aboutDialog__closeButton} onClick={setDisplayed}>
+          閉じる
+        </button>
       </p>
     </div>
   ) : null;
