@@ -4,6 +4,8 @@
   $dates-height: 48px;
   $dates-margin: 8px;
 
+  $changeGraphSource-height: 48px;
+
   & &__table {
     border-top: 1px solid $global-color-gray-3;
   }
@@ -35,10 +37,10 @@
 
   & &__changeSortSource {
     overflow-y: auto;
-    margin-top: 48px;
+    margin-top: $changeGraphSource-height - 1px;
     padding-bottom: $dates-height + $dates-margin * 2;
-    max-height: calc(100vh - 48px);
-    top: 48px;
+    max-height: calc(100vh - #{$changeGraphSource-height});
+    top: $changeGraphSource-height;
   }
 
   & &__changeGraphSource::before {
@@ -67,6 +69,10 @@
   @media (max-width: $break-point) {
     & &__tableBodyHeader {
       min-width: 64px;
+    }
+
+    & &__changeGraphSoruce::before {
+      width: 64px;
     }
   }
 }
