@@ -6,6 +6,18 @@
 
   $changeGraphSource-height: 48px;
 
+  & &__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: $global-color-gray-4;
+  }
+
   & &__table {
     border-top: 1px solid $global-color-gray-3;
   }

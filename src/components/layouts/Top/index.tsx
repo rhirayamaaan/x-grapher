@@ -6,12 +6,19 @@ import ChangeGraphSource from '~/components/modules/ChangeGraphSource';
 import ChangeSortSource from '~/components/modules/ChangeSortSource';
 import styles from './styles.scss';
 import AboutDialog from '~/components/modules/AboutDialog';
+import Loading from '~/components/parts/Loading';
 
 const Top = () => {
   return (
     <div className={styles.top}>
       <GlobalHeader />
-      <Suspense fallback={<div>loading</div>}>
+      <Suspense
+        fallback={
+          <div className={styles.top__loading}>
+            <Loading className={styles.top__loadingItem} />
+          </div>
+        }
+      >
         <div className={styles.top__table}>
           <div className={styles.top__tableBody}>
             <div className={styles.top__tableBodyHeader}>

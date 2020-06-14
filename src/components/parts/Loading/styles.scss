@@ -1,0 +1,35 @@
+@import "../../../styles/variables";
+
+.loading {
+  position: relative;
+  width: 40px;
+  height: 40px;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    border: 2px solid;
+    border-radius: 40px;
+  }
+
+  &::before {
+    border-color: $global-color-gray-1;
+  }
+
+  &::after {
+    border-color: $global-color-white transparent transparent transparent;
+    animation: loading-circle 0.6s linear infinite;
+  }
+
+  @keyframes loading-circle {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
