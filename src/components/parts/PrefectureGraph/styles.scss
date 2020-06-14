@@ -20,6 +20,7 @@ $module-height: 32px;
   display: flex;
   align-items: center;
   height: $module-height;
+  background-color: rgba($global-color-black, 0.5);
 
   & &__name {
     flex-shrink: 0;

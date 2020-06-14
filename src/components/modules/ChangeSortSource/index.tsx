@@ -1,31 +1,34 @@
 import React, { FC, useCallback } from 'react';
 import Icon, { IconThemes } from '~/components/parts/Icon';
-import { currentSortSourceState } from '~/status/atoms/currentSortSource';
-import { JapanMeteorologicalAgency } from '~/data';
+import { currentSortSourceState, CurrentSortSourceConstants } from '~/status/atoms/currentSortSource';
 import { useRecoilState } from 'recoil';
 import { tableOrderSortState, TableSortOrderConstants } from '~/status/atoms/tableOrder';
 import styles from './styles.scss';
 
 const categories = [
   {
-    category: JapanMeteorologicalAgency.Constants.Categories.HIGHEST_TEMPERATURE,
+    category: CurrentSortSourceConstants.Types.HIGHEST_TEMPERATURE,
     icon: IconThemes.THERMOMETER,
   },
   {
-    category: JapanMeteorologicalAgency.Constants.Categories.LOWEST_TEMPERATURE,
+    category: CurrentSortSourceConstants.Types.LOWEST_TEMPERATURE,
     icon: IconThemes.THERMOMETER,
   },
   {
-    category: JapanMeteorologicalAgency.Constants.Categories.MAXIMUM_SUSTAINED_WINDS,
+    category: CurrentSortSourceConstants.Types.MAXIMUM_SUSTAINED_WINDS,
     icon: IconThemes.WIND,
   },
   {
-    category: JapanMeteorologicalAgency.Constants.Categories.RAINFALL,
+    category: CurrentSortSourceConstants.Types.RAINFALL,
     icon: IconThemes.RAIN,
   },
   {
-    category: JapanMeteorologicalAgency.Constants.Categories.SUNLIGHT_HOURS,
+    category: CurrentSortSourceConstants.Types.SUNLIGHT_HOURS,
     icon: IconThemes.SUN,
+  },
+  {
+    category: CurrentSortSourceConstants.Types.DEFAULT,
+    icon: null,
   },
 ];
 
@@ -73,10 +76,10 @@ const ChnageSortSourceOrder: FC<ChnageSortSourceOrderProps> = ({ type, isCurrent
 };
 
 interface ChangeSortSourceCategoryProps {
-  category: JapanMeteorologicalAgency.Constants.Categories;
+  category: CurrentSortSourceConstants.Types;
   isCurrent: boolean;
-  icon: IconThemes;
-  onClick: (category: JapanMeteorologicalAgency.Constants.Categories) => void;
+  icon: IconThemes | null;
+  onClick: (category: CurrentSortSourceConstants.Types) => void;
 }
 
 const ChangeSortSourceCategory: FC<ChangeSortSourceCategoryProps> = ({ category, isCurrent, icon, onClick }) => {
@@ -95,8 +98,8 @@ const ChangeSortSourceCategory: FC<ChangeSortSourceCategoryProps> = ({ category,
           .trim()}
         onClick={setCategory}
       >
-        <Icon theme={icon} className={styles.changeSortSource__categoryIcon} />
-        {JapanMeteorologicalAgency.Constants.jaCategoryNames[category]}
+        {icon ? <Icon theme={icon} className={styles.changeSortSource__categoryIcon} /> : null}
+        {CurrentSortSourceConstants.jaCategoryNames[category]}
       </button>
     </li>
   );
@@ -109,10 +112,7 @@ interface ChangeSortSourceProps {
 const ChangeSortSource: FC<ChangeSortSourceProps> = ({ className }) => {
   const [currentSortSource, setCurrentSortSource] = useRecoilState(currentSortSourceState);
   const [tableSortOrder, setTableSortOrder] = useRecoilState(tableOrderSortState);
-  const setCategory = useCallback(
-    (category: JapanMeteorologicalAgency.Constants.Categories) => setCurrentSortSource(category),
-    []
-  );
+  const setCategory = useCallback((category: CurrentSortSourceConstants.Types) => setCurrentSortSource(category), []);
   return (
     <div className={[styles.changeSortSource, className].join(' ').trim()}>
       <ul className={styles.changeSortSource__orders}>

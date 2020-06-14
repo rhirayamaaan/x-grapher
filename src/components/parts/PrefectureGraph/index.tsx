@@ -1,10 +1,11 @@
 import React, { FC, useState } from 'react';
-import { useRecoilValue, useRecoilCallback } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styles from './styles.scss';
 import { prefectureGraphDataState, selectedPrefectureGraphDataState } from '~/status/atoms/prefectureGraphData';
 import { Prefectures, JapanMeteorologicalAgency } from '~/data';
 import { currentGraphSourceState } from '~/status/atoms/currentGraphSource';
 import { prefectureSortDataState } from '~/status/atoms/prefectureSortData';
+import { currentSortSourceState, CurrentSortSourceConstants } from '~/status/atoms/currentSortSource';
 
 export const PREFECTURE_GRAPH_HEIGHT = parseInt(styles.MODULE_HEIGHT);
 
@@ -14,7 +15,9 @@ interface PrefectureGraphPopupProps {
 }
 
 const PrefectureGraphPopup: FC<PrefectureGraphPopupProps> = ({ prefectureCode, isDisplayed }) => {
-  const { name, value, direction, currentSortSource } = useRecoilValue(prefectureSortDataState(prefectureCode));
+  const { name, value, direction } = useRecoilValue(prefectureSortDataState(prefectureCode));
+  const currentSortSource = useRecoilValue(currentSortSourceState);
+
   return (
     <div
       className={[styles.prefectureGraph__popup, isDisplayed ? styles['prefectureGraph__popup--displayed'] : '']
@@ -22,10 +25,12 @@ const PrefectureGraphPopup: FC<PrefectureGraphPopupProps> = ({ prefectureCode, i
         .trim()}
     >
       <ul className={styles.prefectureGraph__popupItems}>
-        <li className={styles.prefectureGraph__popupItem}>
-          {JapanMeteorologicalAgency.Constants.jaCategoryNames[currentSortSource]}：
-          {`${value}${JapanMeteorologicalAgency.Constants.jaUnitNames[currentSortSource]}`}
-        </li>
+        {currentSortSource !== CurrentSortSourceConstants.Types.DEFAULT ? (
+          <li className={styles.prefectureGraph__popupItem}>
+            {CurrentSortSourceConstants.jaCategoryNames[currentSortSource]}：
+            {`${value}${CurrentSortSourceConstants.jaUnitNames[currentSortSource]}`}
+          </li>
+        ) : null}
         {direction ? <li className={styles.prefectureGraph__popupItem}>風向：{direction}</li> : null}
         <li className={styles.prefectureGraph__popupItem}>県庁所在地：{name}</li>
       </ul>

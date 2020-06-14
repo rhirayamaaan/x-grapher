@@ -21,7 +21,7 @@ const GraphTable: FC<GraphTableProps> = ({ className }) => {
       })}
       update={(data, index) => ({
         y: [data.index * PREFECTURE_GRAPH_HEIGHT],
-        timing: { duration: 400, delay: index * 10 + 150, ease: easeCubicInOut },
+        timing: { duration: 400, delay: index * 10 + 50, ease: easeCubicInOut },
       })}
     >
       {(nodes) => (

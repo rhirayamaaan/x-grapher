@@ -61,7 +61,8 @@ namespace JapanMeteorologicalAgency {
   }
 
   type JsonsData = {
-    [key in JapanMeteorologicalAgency.Constants.Categories]: JsonData;
+    // [key in JapanMeteorologicalAgency.Constants.Categories]: JsonData;
+    [key: string]: JsonData;
   };
 
   export const getJsons = async () => {
