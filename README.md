@@ -5,7 +5,7 @@ X Grapher は、Google の「
 
 ## Product
 
-https://hiraryo0213.github.io/x-grapher/
+https://rhirayamaaan.github.io/x-grapher/
 
 ## Data
 
