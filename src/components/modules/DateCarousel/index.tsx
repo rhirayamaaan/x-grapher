@@ -5,7 +5,7 @@ import TimeUtilities from '~/utilities/time';
 import { ISODates } from '~/data';
 import { currentDateState } from '~/status/atoms/currentDate';
 import Icon, { IconThemes } from '~/components/parts/Icon';
-import 'swiper/css/swiper.min.css';
+import 'swiper/css';
 import styles from './styles.scss';
 
 const dates = (() => {

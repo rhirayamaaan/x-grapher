@@ -15,7 +15,9 @@ const createStyleLoaders = (isProduction) => [
   {
     loader: 'postcss-loader',
     options: {
-      plugins: [require('autoprefixer'), require('postcss-clean')],
+      postcssOptions: {
+        plugins: [require('autoprefixer')],
+      }
     },
   },
 ];
