@@ -27,7 +27,7 @@
     "d3-ease": "^3.0.1",
     "japanese-holidays": "^1.0.10",
     "material-design-icons": "^3.0.1",
-    "moment-timezone": "^0.5.34",
+    "moment-timezone": "^0.5.35",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-id-swiper": "^3.0.0",
